@@ -13,8 +13,21 @@ class HitAndBlow {
   answerSource = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   answer: string[] = []
   tryCount = 0
+
+  setting() {
+    const answerLength = 3
+
+    while (this.answer.length < answerLength) {
+      const randNum = Math.floor(Math.random() * this.answerSource.length)
+      const selectedItem = this.answerSource[randNum]
+      if (!this.answer.includes(selectedItem)) {
+        this.answer.push(selectedItem)
+      }
+    }
+  }
 }
 
 ; (async () => {
   const hidAndBlow = new HitAndBlow()
+  hidAndBlow.setting()
 })()
