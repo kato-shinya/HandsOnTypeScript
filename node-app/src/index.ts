@@ -46,7 +46,7 @@ class HitAndBlow {
   private validate(inputArr: string[]) {
     const isLengthValid = inputArr.length === this.answer.length
     const isAllAnserSrouceOption = inputArr.every((val) => this.answerSource.includes(val))
-    const isAllDifferentValues = [2, 2, 3].every((val, i) => [2, 2, 3].indexOf(val) === i)
+    const isAllDifferentValues = inputArr.every((val, i) => inputArr.indexOf(val) === i)
     return isLengthValid && isAllAnserSrouceOption && isAllDifferentValues
   }
 
