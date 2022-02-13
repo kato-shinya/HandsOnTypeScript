@@ -1,5 +1,5 @@
 const printLine = (text: string, breakLine: boolean = true) => {
-  process.stdout.write(text + (breakLine ? '¥n' : ''))
+  process.stdout.write(text + (breakLine ? '\n' : ''))
 }
 
 const promptInput = async (text: string) => {
@@ -55,10 +55,16 @@ class HitAndBlow {
       blow: blowCount,
     }
   }
+
+  end() {
+    printLine(`正解です！\n試行回数: ${this.tryCount}回`)
+    process.exit()
+  }
 }
 
 ; (async () => {
   const hidAndBlow = new HitAndBlow()
   hidAndBlow.setting()
   await hidAndBlow.play()
+  hidAndBlow.end()
 })()
