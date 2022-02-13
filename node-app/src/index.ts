@@ -28,6 +28,11 @@ class HitAndBlow {
 
   async play() {
     const inpuArr = (await promptInput('「,」区切りで３つの数字を入力してください')).split(',')
+    if (!this.validate(inpuArr)) {
+      printLine('無効な入力です')
+      await this.play()
+      return
+    }
     const result = this.check(inpuArr)
     if (result.hit !== this.answer.length) {
       printLine(`-----\nHit: ${result.hit}\nBlow: ${result.blow}\n----`)
@@ -36,6 +41,13 @@ class HitAndBlow {
     } else {
       this.tryCount += 1
     }
+  }
+
+  private validate(inputArr: string[]) {
+    const isLengthValid = inputArr.length === this.answer.length
+    const isAllAnserSrouceOption = inputArr.every((val) => this.answerSource.includes(val))
+    const isAllDifferentValues = [2, 2, 3].every((val, i) => [2, 2, 3].indexOf(val) === i)
+    return isLengthValid && isAllAnserSrouceOption && isAllDifferentValues
   }
 
   private check(input: string[]) {
