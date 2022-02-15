@@ -13,7 +13,7 @@ class HitAndBlow {
   private readonly answerSource = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   private answer: string[] = []
   private tryCount = 0
-  private mode: 'normal' | 'hard'
+  private mode: 'normal' | 'hard' | 'very hard'
 
   constructor(mode: 'normal' | 'hard') {
     this.mode = mode
@@ -25,6 +25,11 @@ class HitAndBlow {
         return 3;
       case 'hard':
         return 4
+      case 'very hard':
+        return 5
+      default:
+        const neverValue: never = this.mode;
+        throw new Error(`${neverValue}は無効なモードです。`)
     }
   }
 
