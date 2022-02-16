@@ -1,12 +1,33 @@
+const readLine = async () => {
+  const input: string = await new Promise((resolve) => {
+    process.stdin.once('data', (data) => resolve(data.toString()))
+  })
+  return input.trim()
+}
+
 const printLine = (text: string, breakLine: boolean = true) => {
   process.stdout.write(text + (breakLine ? '\n' : ''))
 }
 
 const promptInput = async (text: string) => {
   printLine(`\n${text}\n>`, false)
-  const input: string = await new Promise((resoleve) => process.stdin.once('data', (data) =>
-    resoleve(data.toString())))
-  return input.trim()
+  return readLine()
+}
+
+const promptSelect = async (text: string, values: readonly string[]): Promise<string> => {
+  printLine(`\n${text}`)
+  values.forEach((value) => {
+    printLine(`- ${value}`)
+  })
+  printLine(`> `, false)
+
+  const input = await readLine()
+  if (values.includes(input)) {
+    return input
+  } else {
+    return promptSelect(text, values)
+  }
+
 }
 
 type Mode = 'normal' | 'hard'
@@ -29,7 +50,7 @@ class HitAndBlow {
   }
 
   async setting() {
-    this.mode = await promptInput('モードを入力してください。') as Mode
+    this.mode = await promptSelect('モードを入力してください。', ['normal', 'hard']) as Mode
     const answerLength = this.getAnserLength()
 
     while (this.answer.length < answerLength) {
@@ -92,7 +113,7 @@ class HitAndBlow {
 
 ; (async () => {
   const hidAndBlow = new HitAndBlow()
-  hidAndBlow.setting()
+  await hidAndBlow.setting()
   await hidAndBlow.play()
   hidAndBlow.end()
 })()
