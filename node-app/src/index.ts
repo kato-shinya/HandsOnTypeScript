@@ -15,11 +15,7 @@ class HitAndBlow {
   private readonly answerSource = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   private answer: string[] = []
   private tryCount = 0
-  private mode: Mode
-
-  constructor(mode: Mode) {
-    this.mode = mode
-  }
+  private mode: Mode = 'normal'
 
   private getAnserLength() {
     switch (this.mode) {
@@ -32,7 +28,8 @@ class HitAndBlow {
     }
   }
 
-  setting() {
+  async setting() {
+    this.mode = await promptInput('モードを入力してください。') as Mode
     const answerLength = this.getAnserLength()
 
     while (this.answer.length < answerLength) {
@@ -94,7 +91,7 @@ class HitAndBlow {
 }
 
 ; (async () => {
-  const hidAndBlow = new HitAndBlow('hard')
+  const hidAndBlow = new HitAndBlow()
   hidAndBlow.setting()
   await hidAndBlow.play()
   hidAndBlow.end()
