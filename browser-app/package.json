@@ -4,6 +4,7 @@
   "description": "test",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack -w",
     "build": "webpack",
     "serve": "serve ./ -p 3000"
   },

@@ -1,5 +1,18 @@
 {
   "compilerOptions": {
-    "sourceMap": true
+    "sourceMap": true,
+    "target": "ES2015",
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "module": "ES2015",
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   }
 }
